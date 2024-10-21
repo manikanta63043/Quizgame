@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e9ecef;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      max-width: 500px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    input[type="text"] {
+      padding: 10px;
+      width: calc(100% - 22px);
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1em;
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .question {
+      margin-bottom: 20px;
+      font-size: 1.2em;
+      color: #333;
+    }
+    .options {
+      margin-bottom: 20px;
+    }
+    .options label {
+      display: block;
+      margin: 10px 0;
+    }
+    #result {
+      font-size: 1.5em;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Main Page -->
+  <div id="start">
+    <h1>Quiz Game</h1>
+    <input type="text" id="username" placeholder="Enter your name">
+    <button onclick="startQuiz()">Start Quiz</button>
+  </div>
+
+  <!-- Quiz Page -->
+  <div id="quiz" style="display:none;">
+    <div id="questionText" class="question"></div>
+    <div id="options" class="options"></div>
+    <button id="prevButton" onclick="prevQuestion()" style="display:none;">Previous</button>
+    <button id="nextButton" onclick="nextQuestion()">Next</button>
+  </div>
+
+  <!-- Results Page -->
+  <div id="result" style="display:none;">
+    <h1>Quiz Results</h1>
+    <div id="resultText"></div>
+    <button onclick="location.reload()">Restart Quiz</button>
+  </div>
+</div>
+
+<script>
+  const questions = [
+    {
+      question: "1. What is the capital of France?",
+      options: ["Paris", "London", "Rome", "Berlin"],
+      answer: "Paris"
+    },
+    {
+      question: "2. Who wrote 'Romeo and Juliet'?",
+      options: ["William Shakespeare", "Ernest Hemingway", "Charles Dickens", "Mark Twain"],
+      answer: "William Shakespeare"
+    },
+    {
+      question: "3. What is the largest planet in our solar system?",
+      options: ["Earth", "Jupiter", "Mars", "Saturn"],
+      answer: "Jupiter"
+    },
+    {
+      question: "4. What is the chemical symbol for gold?",
+      options: ["Au", "Ag", "Fe", "Pb"],
+      answer: "Au"
+    },
+    {
+      question: "5. Who painted the Mona Lisa?",
+      options: ["Vincent Van Gogh", "Leonardo Da Vinci", "Pablo Picasso", "Salvador Dali"],
+      answer: "Leonardo Da Vinci"
+    },
+    {
+      question: "6. What is the hardest natural substance on Earth?",
+      options: ["Gold", "Diamond", "Iron", "Copper"],
+      answer: "Diamond"
+    },
+    {
+      question: "7. In which year did the Titanic sink?",
+      options: ["1912", "1905", "1918", "1920"],
+      answer: "1912"
+    },
+    {
+      question: "8. What is the largest mammal in the world?",
+      options: ["Elephant", "Blue Whale", "Giraffe", "Great White Shark"],
+      answer: "Blue Whale"
+    },
+    {
+      question: "9. Who discovered penicillin?",
+      options: ["Alexander Fleming", "Marie Curie", "Isaac Newton", "Albert Einstein"],
+      answer: "Alexander Fleming"
+    },
+    {
+      question: "10. What is the tallest mountain in the world?",
+      options: ["K2", "Mount Everest", "Mount Kilimanjaro", "Mount McKinley"],
+      answer: "Mount Everest"
+    }
+  ];
+
+  let currentQuestionIndex = 0;
+  let score = 0;
+  const selectedAnswers = new Array(questions.length).fill(null); // Store user answers
+
+  function startQuiz() {
+    const username = document.getElementById('username').value;
+    if (username) {
+      localStorage.setItem('username', username);
+      document.getElementById('start').style.display = 'none';
+      document.getElementById('quiz').style.display = 'block';
+      loadQuestion();
+    } else {
+      alert("Please enter your name to start the game!");
+    }
+  }
+
+  function loadQuestion() {
+    const question = questions[currentQuestionIndex];
+    document.getElementById('questionText').innerText = question.question;
+    const optionsContainer = document.getElementById('options');
+    optionsContainer.innerHTML = ''; // Clear previous options
+    question.options.forEach(option => {
+      optionsContainer.innerHTML += `
+        <label>
+          <input type="radio" name="option" value="${option}" ${selectedAnswers[currentQuestionIndex] === option ? 'checked' : ''}> ${option}
+        </label>
+      `;
+    });
+
+    // Show/Hide Previous button
+    document.getElementById('prevButton').style.display = currentQuestionIndex === 0 ? 'none' : 'inline';
+    // Show/Hide Next button
+    document.getElementById('nextButton').innerText = currentQuestionIndex === questions.length - 1 ? 'Submit' : 'Next';
+  }
+
+  function nextQuestion() {
+    const selectedOption = document.querySelector('input[name="option"]:checked');
+    if (selectedOption) {
+      selectedAnswers[currentQuestionIndex] = selectedOption.value; // Save the selected answer
+      if (selectedOption.value === questions[currentQuestionIndex].answer) {
+        score++;
+      }
+      currentQuestionIndex++;
+      if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+      } else {
+        showResults();
+      }
+    } else {
+      alert("Please select an answer!");
+    }
+  }
+
+  function prevQuestion() {
+    if (currentQuestionIndex > 0) {
+      currentQuestionIndex--;
+      loadQuestion();
+    }
+  }
+
+  function showResults() {
+    document.getElementById('quiz').style.display = 'none';
+    document.getElementById('result').style.display = 'block';
+
+    const username = localStorage.getItem('username');
+    document.getElementById('resultText').innerHTML = `Thank you, ${username}! You scored ${score} out of ${questions.length}.`;
+  }
+</script>
+
+</body>
+</html>
