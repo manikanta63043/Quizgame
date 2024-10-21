@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiz Game</title>
+  <title>Classic Quiz Game</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -97,53 +97,53 @@
   const questions = [
     {
       question: "1. What is the capital of France?",
-      options: ["Paris", "London", "Rome", "Berlin"],
+      options: ["Paris", "Madrid", "Berlin", "Rome"],
       answer: "Paris"
     },
     {
-      question: "2. Who wrote 'Romeo and Juliet'?",
-      options: ["William Shakespeare", "Ernest Hemingway", "Charles Dickens", "Mark Twain"],
-      answer: "William Shakespeare"
+      question: "2. Which animal is known as the King of the Jungle?",
+      options: ["Lion", "Tiger", "Elephant", "Giraffe"],
+      answer: "Lion"
     },
     {
-      question: "3. What is the largest planet in our solar system?",
-      options: ["Earth", "Jupiter", "Mars", "Saturn"],
-      answer: "Jupiter"
+      question: "3. Which planet is known as the Blue Planet?",
+      options: ["Earth", "Mars", "Jupiter", "Saturn"],
+      answer: "Earth"
     },
     {
-      question: "4. What is the chemical symbol for gold?",
-      options: ["Au", "Ag", "Fe", "Pb"],
-      answer: "Au"
-    },
-    {
-      question: "5. Who painted the Mona Lisa?",
-      options: ["Vincent Van Gogh", "Leonardo Da Vinci", "Pablo Picasso", "Salvador Dali"],
-      answer: "Leonardo Da Vinci"
-    },
-    {
-      question: "6. What is the hardest natural substance on Earth?",
-      options: ["Gold", "Diamond", "Iron", "Copper"],
-      answer: "Diamond"
-    },
-    {
-      question: "7. In which year did the Titanic sink?",
-      options: ["1912", "1905", "1918", "1920"],
-      answer: "1912"
-    },
-    {
-      question: "8. What is the largest mammal in the world?",
-      options: ["Elephant", "Blue Whale", "Giraffe", "Great White Shark"],
+      question: "4. What is the largest mammal in the world?",
+      options: ["Elephant", "Blue Whale", "Giraffe", "Hippopotamus"],
       answer: "Blue Whale"
     },
     {
-      question: "9. Who discovered penicillin?",
-      options: ["Alexander Fleming", "Marie Curie", "Isaac Newton", "Albert Einstein"],
-      answer: "Alexander Fleming"
+      question: "5. What is the main ingredient in guacamole?",
+      options: ["Tomato", "Avocado", "Onion", "Pepper"],
+      answer: "Avocado"
     },
     {
-      question: "10. What is the tallest mountain in the world?",
-      options: ["K2", "Mount Everest", "Mount Kilimanjaro", "Mount McKinley"],
-      answer: "Mount Everest"
+      question: "6. Who wrote the play 'Romeo and Juliet'?",
+      options: ["Charles Dickens", "William Shakespeare", "J.K. Rowling", "Mark Twain"],
+      answer: "William Shakespeare"
+    },
+    {
+      question: "7. What is the fastest land animal?",
+      options: ["Cheetah", "Lion", "Tiger", "Horse"],
+      answer: "Cheetah"
+    },
+    {
+      question: "8. Which is the largest ocean on Earth?",
+      options: ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
+      answer: "Pacific Ocean"
+    },
+    {
+      question: "9. In which continent is the Sahara Desert located?",
+      options: ["Asia", "Africa", "Australia", "North America"],
+      answer: "Africa"
+    },
+    {
+      question: "10. What is the color of the stars in the American flag?",
+      options: ["Red", "White", "Blue", "Yellow"],
+      answer: "White"
     }
   ];
 
